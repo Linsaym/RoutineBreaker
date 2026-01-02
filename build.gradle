@@ -94,9 +94,17 @@ neoForge {
         // define mod <-> source bindings
         // these are used to tell the game which sources are for which mod
         // multi mod projects should define one per mod
-        "${mod_id}" {
+        
+        // Первый мод: Shared Death
+        "shareddeath" {
             sourceSet(sourceSets.main)
         }
+        
+        // Второй мод: Teleportation Tables
+        // Раскомментируйте когда создадите класс мода:
+        // "teleportationtables" {
+        //     sourceSet(sourceSets.main)
+        // }
     }
 }
 
