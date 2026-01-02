@@ -21,8 +21,9 @@ repositories {
     // Add here additional repositories if required by some of the dependencies below.
 }
 
-base {
-    archivesName = mod_id
+// Отключаем стандартную задачу jar, так как будем создавать отдельные JAR для каждого мода
+tasks.named('jar', Jar).configure {
+    enabled = false
 }
 
 // Mojang ships Java 21 to end users in 1.21.10, so mods should target Java 21.
@@ -100,7 +101,12 @@ neoForge {
             sourceSet(sourceSets.main)
         }
         
-        // Второй мод: Teleportation Tables
+        // Второй мод: Informator
+        "informator" {
+            sourceSet(sourceSets.main)
+        }
+        
+        // Третий мод: Teleportation Tables
         // Раскомментируйте когда создадите класс мода:
         // "teleportationtables" {
         //     sourceSet(sourceSets.main)
@@ -192,4 +198,111 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+// ============================================
+// Конфигурация для сборки отдельных JAR файлов для каждого мода
+// ============================================
+
+// Список модов для сборки
+def modsToBuild = [
+    [
+        modId: 'shareddeath',
+        packagePrefix: 'com.shareddeath',
+        displayName: 'Shared Death Mod',
+        description: 'Если один игрок умирает на сервере, то умирают все остальные игроки.'
+    ],
+    [
+        modId: 'informator',
+        packagePrefix: 'com.informator',
+        displayName: 'Informator',
+        description: 'При входе в незер портал сообщает координаты ближайшей незер крепости.'
+    ]
+]
+
+// Создаем задачи для каждого мода
+modsToBuild.each { modConfig ->
+    def modId = modConfig.modId
+    def packagePrefix = modConfig.packagePrefix
+    def displayName = modConfig.displayName
+    def description = modConfig.description
+    
+    // Задача для генерации neoforge.mods.toml для конкретного мода
+    def generateModToml = tasks.register("generateModToml${modId.capitalize()}", ProcessResources) {
+        var replaceProperties = [
+            minecraft_version: minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version: neo_version,
+            mod_id: modId,
+            mod_name: displayName,
+            mod_license: mod_license,
+            mod_version: mod_version,
+            mod_authors: mod_authors,
+            mod_description: description
+        ]
+        inputs.properties replaceProperties
+        expand replaceProperties
+        from("src/main/templates/META-INF") {
+            include "neoforge.mods.toml.${modId}"
+            rename "neoforge.mods.toml.${modId}", "neoforge.mods.toml"
+        }
+        into "build/generated/sources/modMetadataSeparate/${modId}/META-INF"
+    }
+    
+    // Задача для сборки JAR конкретного мода
+    def jarTask = tasks.register("jar${modId.capitalize()}", Jar) {
+        archiveBaseName = modId
+        archiveVersion = mod_version
+        archiveClassifier = ''
+        
+        dependsOn generateModToml
+        dependsOn classes
+        
+        // Включаем только классы нужного мода
+        from(sourceSets.main.output) {
+            include "${packagePrefix.replace('.', '/')}/**"
+        }
+        
+        // Включаем ресурсы (исключая общий TOML и шаблоны)
+        from(sourceSets.main.resources) {
+            exclude "META-INF/neoforge.mods.toml"
+            exclude "META-INF/neoforge.mods.toml.*"
+        }
+        
+        // Включаем сгенерированный neoforge.mods.toml для этого мода
+        from("build/generated/sources/modMetadataSeparate/${modId}") {
+            include "META-INF/**"
+        }
+        
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        
+        manifest {
+            attributes([
+                "Specification-Title": modId,
+                "Specification-Vendor": mod_authors,
+                "Specification-Version": "1",
+                "Implementation-Title": modId,
+                "Implementation-Version": mod_version,
+                "Implementation-Vendor": mod_authors
+            ])
+        }
+    }
+    
+    // Добавляем задачу в группу build
+    jarTask.configure {
+        group = 'build'
+        description = "Создает JAR файл для мода ${displayName}"
+    }
+}
+
+// Задача для сборки всех модов
+tasks.register('buildAllMods') {
+    group = 'build'
+    description = 'Собирает все моды в отдельные JAR файлы'
+    dependsOn tasks.matching { it.name.startsWith('jar') && it.name != 'jar' }
+}
+
+// Обновляем стандартную задачу build
+tasks.named('build') {
+    dependsOn 'buildAllMods'
 }

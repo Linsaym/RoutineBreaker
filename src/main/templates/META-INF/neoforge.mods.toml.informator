@@ -12,28 +12,25 @@ license="${mod_license}"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.invalid/" #optional
 
 # A list of mods - how many allowed here is determined by the individual mod loader
-# Для нескольких модов просто добавьте несколько секций [[mods]]
-
-# Первый мод: Shared Death Mod
 [[mods]] #mandatory
 
 # The modid of the mod
-modId="shareddeath" #mandatory
+modId="${mod_id}" #mandatory
 
 # The version number of the mod
 version="${mod_version}" #mandatory
 
 # A display name for the mod
-displayName="Shared Death Mod" #mandatory
+displayName="${mod_name}" #mandatory
 
 # A text field displayed in the mod UI
 authors="${mod_authors}" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
-description='''Если один игрок умирает на сервере, то умирают все остальные игроки.'''
+description='''${mod_description}'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.shareddeath]] #optional
+[[dependencies.${mod_id}]] #optional
     # the modid of the dependency
     modId="neoforge" #mandatory
     # The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
@@ -50,7 +47,7 @@ description='''Если один игрок умирает на сервере, 
     side="BOTH"
 
 # Here's another dependency
-[[dependencies.shareddeath]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
     # This version range declares a minimum of the current minecraft version up to but not including the next major version
@@ -58,48 +55,3 @@ description='''Если один игрок умирает на сервере, 
     ordering="NONE"
     side="BOTH"
 
-# Второй мод: Informator
-[[mods]] #mandatory
-
-modId="informator" #mandatory
-version="${mod_version}" #mandatory
-displayName="Informator" #mandatory
-authors="${mod_authors}" #optional
-description='''При входе в незер портал сообщает координаты ближайшей незер крепости.'''
-
-[[dependencies.informator]] #optional
-    modId="neoforge" #mandatory
-    type="required" #mandatory
-    versionRange="[${neo_version},)" #mandatory
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.informator]]
-    modId="minecraft"
-    type="required"
-    versionRange="${minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
-
-# Третий мод: Teleportation Tables (пример - раскомментируйте когда создадите класс мода)
-# [[mods]] #mandatory
-# 
-# modId="teleportationtables" #mandatory
-# version="${mod_version}" #mandatory
-# displayName="Teleportation Tables" #mandatory
-# authors="${mod_authors}" #optional
-# description='''Описание мода Teleportation Tables.'''
-# 
-# [[dependencies.teleportationtables]] #optional
-#     modId="neoforge" #mandatory
-#     type="required" #mandatory
-#     versionRange="[${neo_version},)" #mandatory
-#     ordering="NONE"
-#     side="BOTH"
-# 
-# [[dependencies.teleportationtables]]
-#     modId="minecraft"
-#     type="required"
-#     versionRange="${minecraft_version_range}"
-#     ordering="NONE"
-#     side="BOTH"
