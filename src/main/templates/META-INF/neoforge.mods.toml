@@ -1,76 +1,37 @@
-# This is a neoforge.mods.toml file. It contains the data relating to the loading mods.
-# There are several mandatory fields (#mandatory), and many more that are optional (#optional).
-# The overall format is standard TOML format, v0.5.0.
-# Note that there are a couple of TOML lists in this file.
-# Find more information on toml format here:  https://github.com/toml-lang/toml
-
-# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
-# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license="${mod_license}"
 
-# A URL to refer people to when problems occur with this mod
-#issueTrackerURL="https://change.me.to.your.issue.tracker.invalid/" #optional
-
-# A list of mods - how many allowed here is determined by the individual mod loader
-# Для нескольких модов просто добавьте несколько секций [[mods]]
-
-# Первый мод: Shared Death Mod
-[[mods]] #mandatory
-
-# The modid of the mod
-modId="shareddeath" #mandatory
-
-# The version number of the mod
-version="${mod_version}" #mandatory
-
-# A display name for the mod
-displayName="Shared Death Mod" #mandatory
-
-# A text field displayed in the mod UI
-authors="${mod_authors}" #optional
-
-# The description text for the mod (multi line!) (#mandatory)
+[[mods]]
+modId="shareddeath"
+version="${mod_version}"
+displayName="Shared Death Mod"
+authors="${mod_authors}"
 description='''Если один игрок умирает на сервере, то умирают все остальные игроки.'''
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.shareddeath]] #optional
-    # the modid of the dependency
-    modId="neoforge" #mandatory
-    # The type of the dependency. Can be one of "required", "optional", "incompatible" or "discouraged" (case insensitive).
-    # 'required' requires the mod to exist, 'optional' does not
-    # 'incompatible' will prevent the game from loading when the mod exists, and 'discouraged' will show a warning
-    type="required" #mandatory
-    # The version range of the dependency
-    versionRange="[${neo_version},)" #mandatory
-    # An ordering relationship for the dependency.
-    # BEFORE - This mod is loaded BEFORE the dependency
-    # AFTER - This mod is loaded AFTER the dependency
+[[dependencies.shareddeath]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
     ordering="NONE"
-    # Side this dependency is applied on - BOTH, CLIENT, or SERVER
     side="BOTH"
 
-# Here's another dependency
 [[dependencies.shareddeath]]
     modId="minecraft"
     type="required"
-    # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-# Второй мод: Informator
-[[mods]] #mandatory
-
-modId="informator" #mandatory
-version="${mod_version}" #mandatory
-displayName="Informator" #mandatory
-authors="${mod_authors}" #optional
+[[mods]]
+modId="informator"
+version="${mod_version}"
+displayName="Informator"
+authors="${mod_authors}"
 description='''При входе в незер портал сообщает координаты ближайшей незер крепости.'''
 
-[[dependencies.informator]] #optional
-    modId="neoforge" #mandatory
-    type="required" #mandatory
-    versionRange="[${neo_version},)" #mandatory
+[[dependencies.informator]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
     ordering="NONE"
     side="BOTH"
 
@@ -80,26 +41,3 @@ description='''При входе в незер портал сообщает к�
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-
-# Третий мод: Teleportation Tables (пример - раскомментируйте когда создадите класс мода)
-# [[mods]] #mandatory
-# 
-# modId="teleportationtables" #mandatory
-# version="${mod_version}" #mandatory
-# displayName="Teleportation Tables" #mandatory
-# authors="${mod_authors}" #optional
-# description='''Описание мода Teleportation Tables.'''
-# 
-# [[dependencies.teleportationtables]] #optional
-#     modId="neoforge" #mandatory
-#     type="required" #mandatory
-#     versionRange="[${neo_version},)" #mandatory
-#     ordering="NONE"
-#     side="BOTH"
-# 
-# [[dependencies.teleportationtables]]
-#     modId="minecraft"
-#     type="required"
-#     versionRange="${minecraft_version_range}"
-#     ordering="NONE"
-#     side="BOTH"

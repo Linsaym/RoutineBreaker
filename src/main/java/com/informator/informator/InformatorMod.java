@@ -27,7 +27,6 @@ public class InformatorMod {
             return;
         }
 
-        // Проверяем, что игрок перешел в незер
         if (event.getTo() == Level.NETHER) {
             LOGGER.info("Игрок {} вошел в незер, ищем ближайшую крепость", player.getName().getString());
 

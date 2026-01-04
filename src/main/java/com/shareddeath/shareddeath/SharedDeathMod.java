@@ -39,7 +39,6 @@ public class SharedDeathMod {
         processingChainDeath = true;
 
         try {
-            // Более безопасный источник урона
             DamageSource source = deadPlayer.damageSources().generic();
 
             for (ServerPlayer player : server.getPlayerList().getPlayers()) {
