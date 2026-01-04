@@ -105,6 +105,11 @@ neoForge {
         "informator" {
             sourceSet(sourceSets.main)
         }
+
+        // Третий мод: Wither Axe Head
+        "witheraxehead" {
+            sourceSet(sourceSets.main)
+        }
         
         // Третий мод: Teleportation Tables
         // Раскомментируйте когда создадите класс мода:
@@ -217,6 +222,12 @@ def modsToBuild = [
         packagePrefix: 'com.informator',
         displayName: 'Informator',
         description: 'При входе в незер портал сообщает координаты ближайшей незер крепости.'
+    ],
+    [
+        modId: 'witheraxehead',
+        packagePrefix: 'com.witheraxehead',
+        displayName: 'Wither Axe Head',
+        description: 'При убийстве визера топором с 100% шансом выпадает голова.'
     ]
 ]
 

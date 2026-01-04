@@ -67,3 +67,4 @@ gradlew.bat buildAllMods
 
 После этого выполните `./gradlew buildAllMods` для сборки всех модов, включая новый.
 
+
