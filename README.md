@@ -2,7 +2,7 @@
 
 This repository contains a collection of small mods for **NeoForge** (latest Minecraft version) that:
 
-- **Eliminates grind from the game** 🧹✨
+- **Eliminates routine from the game** 🧹✨
 - **Modifies hardcore gameplay to make it more enjoyable** 💀❤️
 
 ---
