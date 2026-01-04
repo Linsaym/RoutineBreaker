@@ -12,9 +12,12 @@ src/main/java/com/
   ├── shareddeath/
   │   └── shareddeath/
   │       └── SharedDeathMod.java
-  └── teleportationtables/
-      └── teleportationtables/
-          └── TeleportationTablesMod.java
+  ├── toppacktoggle/
+  │   └── toppacktoggle/
+  │       └── TopPackToggleMod.java
+  └── informator/
+      └── informator/
+          └── InformatorMod.java
 ```
 
 ### 2. Организация ресурсов
@@ -31,71 +34,11 @@ src/main/resources/assets/
 
 ### 3. Настройка build.gradle
 
-В секции `neoForge.mods` нужно определить привязку для каждого мода:
-
-```groovy
-mods {
-    "shareddeath" {
-        sourceSet(sourceSets.main)
-    }
-    "teleportationtables" {
-        sourceSet(sourceSets.main)
-    }
-}
-```
-
-**Важно:** Все моды используют один и тот же sourceSet (sourceSets.main), но NeoForge различает их по аннотации @Mod с разными MOD_ID.
+В секции `neoForge.mods` нужно определить привязку для каждого мода
 
 ### 4. Настройка neoforge.mods.toml
 
 В файле `src/main/templates/META-INF/neoforge.mods.toml` нужно добавить секцию `[[mods]]` для каждого мода:
-
-```toml
-# Первый мод
-[[mods]]
-modId="shareddeath"
-version="${mod_version}"
-displayName="Shared Death Mod"
-authors="${mod_authors}"
-description='''Если один игрок умирает на сервере, то умирают все остальные игроки.'''
-
-[[dependencies.shareddeath]]
-    modId="neoforge"
-    type="required"
-    versionRange="[${neo_version},)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.shareddeath]]
-    modId="minecraft"
-    type="required"
-    versionRange="${minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
-
-# Второй мод
-[[mods]]
-modId="teleportationtables"
-version="${mod_version}"
-displayName="Teleportation Tables"
-authors="${mod_authors}"
-description='''Описание второго мода.'''
-
-[[dependencies.teleportationtables]]
-    modId="neoforge"
-    type="required"
-    versionRange="[${neo_version},)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.teleportationtables]]
-    modId="minecraft"
-    type="required"
-    versionRange="${minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
-```
-
 ### 5. Аннотация @Mod в Java-классах
 
 Каждый главный класс мода должен иметь уникальный MOD_ID:

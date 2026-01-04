@@ -20,6 +20,9 @@ This repository contains a collection of small mods for **NeoForge** (latest Min
 - **witheraxehead** ⚔️💀
   - Killing a **Wither Skeleton with an axe** has a **100% chance** to drop a **Wither Skeleton skull** 🎯
 
+- **toppacktoggle** 🎛️📦
+  - Press **0** to remove/restore the top enabled **resource pack**. On first press, remembers the pack id and saves it to config. You can edit selected pack in `.minecraft\config\toppacktoggle.json`
+
 ---
 
 ## ⚙️ Installation

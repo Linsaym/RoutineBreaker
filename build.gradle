@@ -70,6 +70,10 @@ neoForge {
         "witheraxehead" {
             sourceSet(sourceSets.main)
         }
+
+        "toppacktoggle" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
@@ -144,6 +148,12 @@ def modsToBuild = [
         packagePrefix: 'com.witheraxehead',
         displayName: 'Wither Axe Head',
         description: 'При убийстве визер-скелета топором с 100% шансом выпадает череп визер-скелета.'
+    ],
+    [
+        modId: 'toppacktoggle',
+        packagePrefix: 'com.toppacktoggle',
+        displayName: 'Top Pack Toggle',
+        description: 'По нажатию клавиши 0 убирает/возвращает верхний ресурс-пак (с запоминанием ID).'
     ]
 ]
 
